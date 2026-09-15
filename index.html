@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Premium Gift Store | Parcel Tracking Demo</title>
+
+<title>Premium Gift Store | Parcel Tracking</title>
 
 <style>
 *{
@@ -20,14 +21,14 @@ body{
 
 .header{
   background:#111827;
-  color:white;
+  color:#fff;
   padding:22px 18px;
   text-align:center;
 }
 
 .header h1{
   font-size:25px;
-  letter-spacing:.5px;
+  letter-spacing:.4px;
 }
 
 .header p{
@@ -41,7 +42,7 @@ body{
   color:#795b00;
   text-align:center;
   padding:8px;
-  font-size:12px;
+  font-size:11px;
   font-weight:bold;
 }
 
@@ -51,7 +52,7 @@ body{
 }
 
 .search-box{
-  background:white;
+  background:#fff;
   padding:22px;
   border-radius:16px;
   box-shadow:0 5px 25px rgba(0,0,0,.07);
@@ -83,7 +84,7 @@ input:focus{
 button{
   border:0;
   background:#111827;
-  color:white;
+  color:#fff;
   padding:14px 20px;
   border-radius:10px;
   font-weight:bold;
@@ -100,7 +101,7 @@ button:hover{
 }
 
 .card{
-  background:white;
+  background:#fff;
   border-radius:16px;
   padding:22px;
   margin-bottom:16px;
@@ -164,15 +165,17 @@ button:hover{
 
 .detail strong{
   font-size:13px;
-  line-height:1.4;
+  line-height:1.5;
 }
 
 .address{
   grid-column:1/-1;
 }
 
+/* PARCEL JOURNEY */
+
 .timeline{
-  margin-top:15px;
+  margin-top:20px;
   position:relative;
 }
 
@@ -180,16 +183,11 @@ button:hover{
   display:flex;
   gap:15px;
   position:relative;
-  padding-bottom:25px;
-}
-
-.step:last-child{
-  padding-bottom:0;
 }
 
 .dot{
-  width:15px;
-  height:15px;
+  width:16px;
+  height:16px;
   background:#16a34a;
   border-radius:50%;
   margin-top:3px;
@@ -198,44 +196,43 @@ button:hover{
   z-index:2;
 }
 
-.step:not(:last-child) .dot:after{
-  content:"";
-  position:absolute;
-  top:15px;
-  left:6px;
-  width:2px;
-  height:45px;
-  background:#bbf7d0;
-}
-
 .step h4{
-  font-size:14px;
+  font-size:16px;
+  margin-bottom:5px;
 }
 
 .step p{
   color:#6b7280;
-  font-size:12px;
-  margin-top:4px;
+  font-size:13px;
 }
+
+/* DELIVERY */
 
 .delivery{
   background:#111827;
-  color:white;
+  color:#fff;
   text-align:center;
+  padding:28px 20px;
 }
 
 .delivery h2{
-  font-size:20px;
+  font-size:21px;
 }
 
-.delivery p{
-  margin-top:8px;
+.delivery .date{
+  margin-top:10px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.delivery .small{
+  margin-top:7px;
   color:#d1d5db;
   font-size:13px;
 }
 
 .signature{
-  margin-top:16px;
+  margin-top:18px;
   padding-top:15px;
   border-top:1px solid #e5e7eb;
 }
@@ -247,16 +244,9 @@ button:hover{
 
 .signature strong{
   display:block;
-  margin-top:5px;
+  margin-top:6px;
   font-family:cursive;
-  font-size:20px;
-}
-
-.footer{
-  text-align:center;
-  padding:20px;
-  color:#9ca3af;
-  font-size:11px;
+  font-size:21px;
 }
 
 .error{
@@ -269,7 +259,15 @@ button:hover{
   font-size:13px;
 }
 
+.footer{
+  text-align:center;
+  padding:20px;
+  color:#9ca3af;
+  font-size:11px;
+}
+
 @media(max-width:600px){
+
   .input-row{
     flex-direction:column;
   }
@@ -287,8 +285,12 @@ button:hover{
   }
 
   .tracking-top{
-    align-items:flex-start;
     flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .status{
+    margin-top:4px;
   }
 }
 </style>
@@ -296,21 +298,27 @@ button:hover{
 
 <body>
 
+<!-- HEADER -->
+
 <div class="header">
   <h1>🎁 Premium Gift Store</h1>
   <p>Parcel Tracking Portal</p>
 </div>
 
 <div class="demo">
-  Status / PREVIEW — This page is  a real courier tracking record.
+  REAL / PREVIEW — This is a sample tracking interface, not a real courier record.
 </div>
 
 <div class="container">
 
+  <!-- SEARCH -->
+
   <div class="search-box">
+
     <h2>Track Your Parcel</h2>
 
     <div class="input-row">
+
       <input
         type="tel"
         id="mobile"
@@ -318,28 +326,42 @@ button:hover{
         maxlength="10"
       >
 
-      <button onclick="trackParcel()">Track Parcel</button>
+      <button onclick="trackParcel()">
+        Track Parcel
+      </button>
+
     </div>
 
     <div class="error" id="error">
-      1 parcel found for this mobile number.
+      Your parcel found for Your mobile number.
     </div>
+
   </div>
 
+
+  <!-- RESULT -->
+
   <div class="result" id="result">
+
+    <!-- TRACKING CARD -->
 
     <div class="card">
 
       <div class="tracking-top">
+
         <div class="tracking-id">
           Tracking ID<br>
           <strong>PGS-2026-0915-7396</strong>
         </div>
 
         <div class="status">
-          ● Expected Delivery
+          ● Order Confirmed
         </div>
+
       </div>
+
+
+      <!-- CUSTOMER DETAILS -->
 
       <div class="customer">
 
@@ -372,6 +394,21 @@ button:hover{
           </div>
 
           <div class="detail">
+            <span>City</span>
+            <strong>Hyderabad</strong>
+          </div>
+
+          <div class="detail">
+            <span>State</span>
+            <strong>Telangana</strong>
+          </div>
+
+          <div class="detail">
+            <span>PIN Code</span>
+            <strong>500072</strong>
+          </div>
+
+          <div class="detail">
             <span>Country</span>
             <strong>India 🇮🇳</strong>
           </div>
@@ -382,6 +419,9 @@ button:hover{
 
     </div>
 
+
+    <!-- PARCEL JOURNEY -->
+
     <div class="card">
 
       <h3>Parcel Journey</h3>
@@ -389,54 +429,50 @@ button:hover{
       <div class="timeline">
 
         <div class="step">
+
           <div class="dot"></div>
+
           <div>
             <h4>Order Confirmed</h4>
             <p>15 September 2026</p>
           </div>
-        </div>
 
-        <div class="step">
-          <div class="dot"></div>
-          <div>
-            <h4>Parcel Processing</h4>
-            <p>16 September 2026</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="dot"></div>
-          <div>
-            <h4>In Transit</h4>
-            <p>18 September 2026</p>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="dot"></div>
-          <div>
-            <h4>Out for Delivery</h4>
-            <p>21 September 2026</p>
-          </div>
         </div>
 
       </div>
 
     </div>
 
+
+    <!-- EXPECTED DELIVERY -->
+
     <div class="card delivery">
+
       <h2>📦 Expected Delivery</h2>
-      <p>21 September 2026</p>
-      <p>Demo delivery schedule</p>
+
+      <div class="date">
+        21 September 2026
+      </div>
+
+      <div class="small">
+        Estimated delivery date
+      </div>
+
     </div>
+
+
+    <!-- SIGNATURE -->
 
     <div class="card">
 
       <h3>Customer Confirmation</h3>
 
       <div class="signature">
+
         <span>Signature</span>
+
         <strong>tanuja</strong>
+
       </div>
 
     </div>
@@ -445,20 +481,34 @@ button:hover{
 
 </div>
 
+
+<!-- FOOTER -->
+
 <div class="footer">
-  © 2026 Premium Gift Store • Tracking System
+  © 2026 Premium Gift Store • Real Tracking System
 </div>
 
+
 <script>
+
 function trackParcel(){
 
-  const mobile = document.getElementById("mobile").value.trim();
-  const result = document.getElementById("result");
-  const error = document.getElementById("error");
+  const mobile =
+    document.getElementById("mobile").value.trim();
+
+  const result =
+    document.getElementById("result");
+
+  const error =
+    document.getElementById("error");
+
+
+  /* REAL MOBILE NUMBER */
 
   if(mobile === "7396332904"){
 
     result.style.display = "block";
+
     error.style.display = "none";
 
     result.scrollIntoView({
@@ -469,16 +519,29 @@ function trackParcel(){
   }else{
 
     result.style.display = "none";
+
     error.style.display = "block";
+
   }
+
 }
 
-document.getElementById("mobile").addEventListener("keypress", function(e){
+
+/* ENTER KEY SUPPORT */
+
+document
+.getElementById("mobile")
+.addEventListener("keypress", function(e){
+
   if(e.key === "Enter"){
+
     trackParcel();
+
   }
+
 });
+
 </script>
 
 </body>
-  </html>
+</html>
