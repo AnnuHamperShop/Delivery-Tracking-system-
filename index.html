@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>THE GIFT GALLERY | Gift Parcel Tracking</title>
+  <title>THE GIFT GALLERY | Parcel Tracking</title>
 
   <style>
     * {
@@ -19,38 +19,122 @@
       color: #1d2939;
     }
 
+    /* DEMO BAR */
     .demo-bar {
       background: #fff3cd;
       color: #856404;
       text-align: center;
       padding: 10px 15px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       border-bottom: 1px solid #ffe69c;
     }
 
+    /* HEADER */
     header {
       background: linear-gradient(135deg, #111827, #26354d);
       color: white;
-      padding: 25px 20px;
       text-align: center;
+      padding: 30px 20px;
     }
 
     header h1 {
-      font-size: 25px;
+      font-size: 26px;
       letter-spacing: 1px;
     }
 
     header p {
-      margin-top: 7px;
       color: #d7dee8;
       font-size: 14px;
+      margin-top: 7px;
     }
 
+    /* MAIN */
     .container {
       width: 92%;
       max-width: 900px;
       margin: 25px auto 50px;
+    }
+
+    /* SEARCH CARD */
+    .search-card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .search-card h2 {
+      font-size: 20px;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .search-card p {
+      color: #667085;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .search-box input {
+      flex: 1;
+      height: 50px;
+      border: 1px solid #d0d5dd;
+      border-radius: 10px;
+      padding: 0 15px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: #111827;
+    }
+
+    .search-box button {
+      height: 50px;
+      border: none;
+      border-radius: 10px;
+      background: #111827;
+      color: white;
+      padding: 0 25px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .search-box button:hover {
+      background: #26354d;
+    }
+
+    .example {
+      margin-top: 12px;
+      font-size: 11px;
+      color: #98a2b3;
+    }
+
+    /* ERROR */
+    .error {
+      display: none;
+      background: #fef3f2;
+      color: #b42318;
+      padding: 12px;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    /* RESULT */
+    #result {
+      display: none;
     }
 
     .tracking-card {
@@ -66,22 +150,23 @@
       justify-content: space-between;
       align-items: center;
       gap: 15px;
-      border-bottom: 1px solid #e5e7eb;
       padding-bottom: 20px;
+      border-bottom: 1px solid #e5e7eb;
     }
 
     .tracking-label {
-      font-size: 12px;
       color: #667085;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
     .tracking-id {
-      font-size: 21px;
+      font-size: 20px;
       font-weight: 800;
-      margin-top: 5px;
       color: #111827;
+      margin-top: 5px;
+      word-break: break-word;
     }
 
     .status {
@@ -89,25 +174,26 @@
       color: #166534;
       padding: 9px 15px;
       border-radius: 30px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       white-space: nowrap;
     }
 
+    /* DELIVERY */
     .delivery-box {
-      margin-top: 22px;
       background: #f8fafc;
       border-radius: 14px;
       padding: 20px;
+      margin-top: 20px;
     }
 
     .delivery-box h2 {
-      font-size: 17px;
+      font-size: 16px;
       margin-bottom: 10px;
     }
 
     .delivery-date {
-      font-size: 24px;
+      font-size: 23px;
       font-weight: 800;
       color: #111827;
     }
@@ -115,9 +201,10 @@
     .delivery-time {
       margin-top: 6px;
       color: #667085;
-      font-size: 14px;
+      font-size: 13px;
     }
 
+    /* DETAILS */
     .section-title {
       font-size: 19px;
       margin-bottom: 18px;
@@ -143,23 +230,21 @@
     .detail span {
       display: block;
       color: #667085;
-      font-size: 12px;
+      font-size: 11px;
       margin-bottom: 6px;
       text-transform: uppercase;
     }
 
     .detail strong {
       display: block;
+      color: #1d2939;
       font-size: 14px;
       line-height: 1.5;
-      color: #1d2939;
     }
 
-    /* Timeline */
-
+    /* TIMELINE */
     .timeline {
       position: relative;
-      margin-top: 10px;
     }
 
     .timeline::before {
@@ -194,16 +279,16 @@
       justify-content: center;
       z-index: 2;
       color: #667085;
-      font-size: 16px;
       font-weight: bold;
+      font-size: 15px;
     }
 
-    .step.completed .circle {
+    .completed .circle {
       background: #111827;
       color: white;
     }
 
-    .step.current .circle {
+    .current .circle {
       background: #16a34a;
       color: white;
       box-shadow: 0 0 0 5px #dcfce7;
@@ -211,8 +296,8 @@
 
     .step-content h3 {
       font-size: 15px;
-      margin-bottom: 5px;
       color: #111827;
+      margin-bottom: 5px;
     }
 
     .step-content p {
@@ -226,47 +311,58 @@
       font-weight: 700;
     }
 
+    /* FOOTER */
     .footer-note {
       text-align: center;
       color: #667085;
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1.6;
       margin-top: 25px;
     }
 
     .demo-label {
       display: inline-block;
-      margin-top: 12px;
       padding: 5px 10px;
       border: 1px solid #f59e0b;
       color: #b45309;
       border-radius: 20px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: bold;
+      margin-bottom: 8px;
     }
 
+    /* MOBILE */
     @media (max-width: 600px) {
+
       header h1 {
         font-size: 21px;
       }
 
       .container {
         width: 94%;
-        margin-top: 18px;
       }
 
-      .tracking-card {
+      .tracking-card,
+      .search-card {
         padding: 18px;
         border-radius: 15px;
       }
 
-      .tracking-top {
-        align-items: flex-start;
+      .search-box {
         flex-direction: column;
       }
 
+      .search-box button {
+        width: 100%;
+      }
+
+      .tracking-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
       .tracking-id {
-        font-size: 18px;
+        font-size: 17px;
       }
 
       .details-grid {
@@ -278,7 +374,7 @@
       }
 
       .delivery-date {
-        font-size: 20px;
+        font-size: 19px;
       }
     }
   </style>
@@ -288,7 +384,7 @@
 
   <!-- DEMO NOTICE -->
   <div class="demo-bar">
-  REAL / THE GIFT GALLERY TRACKING PAGE — THIS IS A REAL COURIER TRACKING SYSTEM
+  REAL / GIFT TRACKING PAGE — NOT A REAL COURIER TRACKING SYSTEM
   </div>
 
   <!-- HEADER -->
@@ -299,162 +395,274 @@
 
   <main class="container">
 
-    <!-- TRACKING SUMMARY -->
-    <section class="tracking-card">
+    <!-- SEARCH SECTION -->
+    <section class="search-card">
 
-      <div class="tracking-top">
+      <h2>Track Your Order</h2>
 
-        <div>
-          <div class="tracking-label">Tracking ID</div>
-          <div class="tracking-id">TGG-CHN-220926-58421</div>
-        </div>
-
-        <div class="status">
-          ● Out for Delivery
-        </div>
-
-      </div>
-
-      <!-- DELIVERY INFORMATION -->
-      <div class="delivery-box">
-        <h2>Expected Delivery</h2>
-
-        <div class="delivery-date">
-          22 September 2026
-        </div>
-
-        <div class="delivery-time">
-          Expected delivery time: <strong>2:00 PM – 3:00 PM</strong>
-        </div>
-      </div>
-
-    </section>
-
-
-    <!-- CUSTOMER DETAILS -->
-    <section class="tracking-card">
-
-      <h2 class="section-title">Delivery Details</h2>
-
-      <div class="details-grid">
-
-        <div class="detail">
-          <span>Customer Name</span>
-          <strong>Asif Mohamed.S</strong>
-        </div>
-
-        <div class="detail">
-          <span>Contact Number</span>
-          <strong>8524014321</strong>
-        </div>
-
-        <div class="detail">
-          <span>City</span>
-          <strong>Chennai</strong>
-        </div>
-
-        <div class="detail">
-          <span>Pincode</span>
-          <strong>600119</strong>
-        </div>
-
-        <div class="detail full">
-          <span>Delivery Address</span>
-          <strong>
-            No 3, Anna 1st Cross Street, Anna Street,
-            Sholinganallur, Chennai – 600119
-          </strong>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- SHIPMENT PROGRESS -->
-    <section class="tracking-card">
-
-      <h2 class="section-title">Shipment Progress</h2>
-
-      <div class="timeline">
-
-        <!-- STEP 1 -->
-        <div class="step completed">
-          <div class="circle">✓</div>
-
-          <div class="step-content">
-            <h3>Order Confirmed</h3>
-            <p>Your order has been successfully confirmed.</p>
-          </div>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="step completed">
-          <div class="circle">✓</div>
-
-          <div class="step-content">
-            <h3>Parcel Packed</h3>
-            <p>Your parcel has been securely packed.</p>
-          </div>
-        </div>
-
-        <!-- STEP 3 -->
-        <div class="step completed">
-          <div class="circle">✓</div>
-
-          <div class="step-content">
-            <h3>Dispatched</h3>
-            <p>The parcel has been dispatched for delivery.</p>
-          </div>
-        </div>
-
-        <!-- STEP 4 -->
-        <div class="step completed">
-          <div class="circle">✓</div>
-
-          <div class="step-content">
-            <h3>In Transit</h3>
-            <p>The parcel is moving towards the destination city.</p>
-          </div>
-        </div>
-
-        <!-- STEP 5 -->
-        <div class="step current">
-          <div class="circle">●</div>
-
-          <div class="step-content">
-            <h3>Out for Delivery</h3>
-            <p class="current-text">
-              Your parcel is scheduled for delivery to the provided address.
-            </p>
-          </div>
-        </div>
-
-        <!-- STEP 6 -->
-        <div class="step">
-          <div class="circle">6</div>
-
-          <div class="step-content">
-            <h3>Delivered</h3>
-            <p>Delivery will be marked complete after successful receipt.</p>
-          </div>
-        </div>
-
-      </div>
-
-    </section>
-
-
-    
-      
-
-      <p style="margin-top:10px;">
-        
+      <p>
+        Enter your tracking ID below to view your order details.
       </p>
+
+      <div class="search-box">
+
+        <input
+          type="text"
+          id="trackingInput"
+          placeholder="Enter Tracking ID"
+          autocomplete="off"
+        >
+
+        <button onclick="trackOrder()">
+          Track Order
+        </button>
+
+      </div>
+
+      <div class="example">
+        Fill Tracking ID: TGG-CHN-220926-58421
+      </div>
+
+      <div class="error" id="errorMessage">
+        Tracking ID not found. Please check the tracking ID and try again.
+      </div>
+
+    </section>
+
+
+    <!-- ORDER RESULT -->
+    <div id="result">
+
+      <!-- TRACKING STATUS -->
+      <section class="tracking-card">
+
+        <div class="tracking-top">
+
+          <div>
+            <div class="tracking-label">
+              Tracking ID
+            </div>
+
+            <div class="tracking-id">
+              TGG-CHN-220926-58421
+            </div>
+          </div>
+
+          <div class="status">
+            ● Out for Delivery
+          </div>
+
+        </div>
+
+
+        <!-- DELIVERY -->
+        <div class="delivery-box">
+
+          <h2>Expected Delivery</h2>
+
+          <div class="delivery-date">
+            22 September 2026
+          </div>
+
+          <div class="delivery-time">
+            Expected delivery time:
+            <strong>2:00 PM – 3:00 PM</strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ORDER DETAILS -->
+      <section class="tracking-card">
+
+        <h2 class="section-title">
+          Order Details
+        </h2>
+
+        <div class="details-grid">
+
+          <div class="detail">
+            <span>Customer Name</span>
+            <strong>Asif Mohamed.S</strong>
+          </div>
+
+          <div class="detail">
+            <span>Contact Number</span>
+            <strong>8524014321</strong>
+          </div>
+
+          <div class="detail">
+            <span>City</span>
+            <strong>Chennai</strong>
+          </div>
+
+          <div class="detail">
+            <span>Pincode</span>
+            <strong>600119</strong>
+          </div>
+
+          <div class="detail full">
+            <span>Delivery Address</span>
+
+            <strong>
+              No 3, Anna 1st Cross Street, Anna Street,
+              Sholinganallur, Chennai – 600119
+            </strong>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SHIPMENT PROGRESS -->
+      <section class="tracking-card">
+
+        <h2 class="section-title">
+          Shipment Progress
+        </h2>
+
+        <div class="timeline">
+
+          <div class="step completed">
+            <div class="circle">✓</div>
+
+            <div class="step-content">
+              <h3>Order Confirmed</h3>
+              <p>
+                Your order has been successfully confirmed.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="step completed">
+            <div class="circle">✓</div>
+
+            <div class="step-content">
+              <h3>Parcel Packed</h3>
+              <p>
+                Your parcel has been securely packed.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="step completed">
+            <div class="circle">✓</div>
+
+            <div class="step-content">
+              <h3>Dispatched</h3>
+              <p>
+                The parcel has been dispatched for delivery.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="step completed">
+            <div class="circle">✓</div>
+
+            <div class="step-content">
+              <h3>In Transit</h3>
+              <p>
+                The parcel is moving towards the destination city.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="step current">
+            <div class="circle">●</div>
+
+            <div class="step-content">
+              <h3>Out for Delivery</h3>
+              <p class="current-text">
+                Your parcel is scheduled for delivery to the
+                provided address.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="step">
+            <div class="circle">6</div>
+
+            <div class="step-content">
+              <h3>Delivered</h3>
+              <p>
+                Delivery will be marked complete after successful receipt.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
 
     </div>
 
+
+    <!-- FOOTER -->
+    <div class="footer-note">
+
+      
+
   </main>
+
+
+  <!-- JAVASCRIPT -->
+  <script>
+
+    function trackOrder() {
+
+      const input = document
+        .getElementById("trackingInput")
+        .value
+        .trim()
+        .toUpperCase();
+
+      const result = document.getElementById("result");
+      const error = document.getElementById("errorMessage");
+
+      const validTrackingID = "TGG-CHN-220926-58421";
+
+      if (input === validTrackingID) {
+
+        error.style.display = "none";
+        result.style.display = "block";
+
+        // Scroll smoothly to order details
+        setTimeout(function() {
+          result.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 100);
+
+      } else {
+
+        result.style.display = "none";
+        error.style.display = "block";
+
+      }
+    }
+
+
+    // Enter key se bhi tracking chalegi
+    document
+      .getElementById("trackingInput")
+      .addEventListener("keydown", function(event) {
+
+        if (event.key === "Enter") {
+          trackOrder();
+        }
+
+      });
+
+  </script>
 
 </body>
 </html>
