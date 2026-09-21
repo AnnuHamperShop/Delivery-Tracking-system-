@@ -1,547 +1,460 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Premium Gift Store | Parcel Tracking</title>
+  <title>THE GIFT GALLERY | Gift Parcel Tracking</title>
 
-<style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-  font-family:Arial, sans-serif;
-}
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-body{
-  background:#f5f6f8;
-  color:#222;
-}
+    body {
+      background: #f4f6f8;
+      color: #1d2939;
+    }
 
-.header{
-  background:#111827;
-  color:#fff;
-  padding:22px 18px;
-  text-align:center;
-}
+    .demo-bar {
+      background: #fff3cd;
+      color: #856404;
+      text-align: center;
+      padding: 10px 15px;
+      font-size: 13px;
+      font-weight: 700;
+      border-bottom: 1px solid #ffe69c;
+    }
 
-.header h1{
-  font-size:25px;
-  letter-spacing:.4px;
-}
+    header {
+      background: linear-gradient(135deg, #111827, #26354d);
+      color: white;
+      padding: 25px 20px;
+      text-align: center;
+    }
 
-.header p{
-  margin-top:6px;
-  color:#d1d5db;
-  font-size:13px;
-}
+    header h1 {
+      font-size: 25px;
+      letter-spacing: 1px;
+    }
 
-.demo{
-  background:#fff3cd;
-  color:#795b00;
-  text-align:center;
-  padding:8px;
-  font-size:11px;
-  font-weight:bold;
-}
+    header p {
+      margin-top: 7px;
+      color: #d7dee8;
+      font-size: 14px;
+    }
 
-.container{
-  width:min(720px,94%);
-  margin:25px auto;
-}
+    .container {
+      width: 92%;
+      max-width: 900px;
+      margin: 25px auto 50px;
+    }
 
-.search-box{
-  background:#fff;
-  padding:22px;
-  border-radius:16px;
-  box-shadow:0 5px 25px rgba(0,0,0,.07);
-}
+    .tracking-card {
+      background: white;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
 
-.search-box h2{
-  font-size:19px;
-  margin-bottom:14px;
-}
+    .tracking-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 20px;
+    }
 
-.input-row{
-  display:flex;
-  gap:10px;
-}
+    .tracking-label {
+      font-size: 12px;
+      color: #667085;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-input{
-  flex:1;
-  padding:14px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  font-size:15px;
-  outline:none;
-}
+    .tracking-id {
+      font-size: 21px;
+      font-weight: 800;
+      margin-top: 5px;
+      color: #111827;
+    }
 
-input:focus{
-  border-color:#111827;
-}
+    .status {
+      background: #dcfce7;
+      color: #166534;
+      padding: 9px 15px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
 
-button{
-  border:0;
-  background:#111827;
-  color:#fff;
-  padding:14px 20px;
-  border-radius:10px;
-  font-weight:bold;
-  cursor:pointer;
-}
+    .delivery-box {
+      margin-top: 22px;
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 20px;
+    }
 
-button:hover{
-  background:#374151;
-}
+    .delivery-box h2 {
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
 
-.result{
-  display:none;
-  margin-top:20px;
-}
+    .delivery-date {
+      font-size: 24px;
+      font-weight: 800;
+      color: #111827;
+    }
 
-.card{
-  background:#fff;
-  border-radius:16px;
-  padding:22px;
-  margin-bottom:16px;
-  box-shadow:0 5px 25px rgba(0,0,0,.06);
-}
+    .delivery-time {
+      margin-top: 6px;
+      color: #667085;
+      font-size: 14px;
+    }
 
-.tracking-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-}
+    .section-title {
+      font-size: 19px;
+      margin-bottom: 18px;
+      color: #111827;
+    }
 
-.tracking-id{
-  color:#6b7280;
-  font-size:13px;
-}
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
 
-.tracking-id strong{
-  color:#111827;
-  font-size:15px;
-}
+    .detail {
+      background: #f8fafc;
+      padding: 15px;
+      border-radius: 12px;
+    }
 
-.status{
-  background:#e8f7ed;
-  color:#147a3e;
-  padding:8px 12px;
-  border-radius:20px;
-  font-size:12px;
-  font-weight:bold;
-  white-space:nowrap;
-}
+    .detail.full {
+      grid-column: 1 / -1;
+    }
 
-.customer{
-  margin-top:20px;
-}
+    .detail span {
+      display: block;
+      color: #667085;
+      font-size: 12px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
 
-.customer h3{
-  font-size:17px;
-  margin-bottom:15px;
-}
+    .detail strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #1d2939;
+    }
 
-.details{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
+    /* Timeline */
 
-.detail{
-  background:#f8fafc;
-  padding:13px;
-  border-radius:10px;
-}
+    .timeline {
+      position: relative;
+      margin-top: 10px;
+    }
 
-.detail span{
-  display:block;
-  color:#6b7280;
-  font-size:11px;
-  margin-bottom:5px;
-}
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: #d0d5dd;
+    }
 
-.detail strong{
-  font-size:13px;
-  line-height:1.5;
-}
+    .step {
+      position: relative;
+      display: flex;
+      gap: 17px;
+      margin-bottom: 25px;
+    }
 
-.address{
-  grid-column:1/-1;
-}
+    .step:last-child {
+      margin-bottom: 0;
+    }
 
-/* PARCEL JOURNEY */
+    .circle {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      border-radius: 50%;
+      background: #e4e7ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      color: #667085;
+      font-size: 16px;
+      font-weight: bold;
+    }
 
-.timeline{
-  margin-top:20px;
-  position:relative;
-}
+    .step.completed .circle {
+      background: #111827;
+      color: white;
+    }
 
-.step{
-  display:flex;
-  gap:15px;
-  position:relative;
-}
+    .step.current .circle {
+      background: #16a34a;
+      color: white;
+      box-shadow: 0 0 0 5px #dcfce7;
+    }
 
-.dot{
-  width:16px;
-  height:16px;
-  background:#16a34a;
-  border-radius:50%;
-  margin-top:3px;
-  flex-shrink:0;
-  position:relative;
-  z-index:2;
-}
+    .step-content h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+      color: #111827;
+    }
 
-.step h4{
-  font-size:16px;
-  margin-bottom:5px;
-}
+    .step-content p {
+      font-size: 13px;
+      color: #667085;
+      line-height: 1.5;
+    }
 
-.step p{
-  color:#6b7280;
-  font-size:13px;
-}
+    .current-text {
+      color: #15803d !important;
+      font-weight: 700;
+    }
 
-/* DELIVERY */
+    .footer-note {
+      text-align: center;
+      color: #667085;
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 25px;
+    }
 
-.delivery{
-  background:#111827;
-  color:#fff;
-  text-align:center;
-  padding:28px 20px;
-}
+    .demo-label {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 5px 10px;
+      border: 1px solid #f59e0b;
+      color: #b45309;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: bold;
+    }
 
-.delivery h2{
-  font-size:21px;
-}
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 21px;
+      }
 
-.delivery .date{
-  margin-top:10px;
-  font-size:18px;
-  font-weight:bold;
-}
+      .container {
+        width: 94%;
+        margin-top: 18px;
+      }
 
-.delivery .small{
-  margin-top:7px;
-  color:#d1d5db;
-  font-size:13px;
-}
+      .tracking-card {
+        padding: 18px;
+        border-radius: 15px;
+      }
 
-.signature{
-  margin-top:18px;
-  padding-top:15px;
-  border-top:1px solid #e5e7eb;
-}
+      .tracking-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
 
-.signature span{
-  color:#6b7280;
-  font-size:12px;
-}
+      .tracking-id {
+        font-size: 18px;
+      }
 
-.signature strong{
-  display:block;
-  margin-top:6px;
-  font-family:cursive;
-  font-size:21px;
-}
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
 
-.error{
-  display:none;
-  color:#b91c1c;
-  background:#fee2e2;
-  padding:12px;
-  border-radius:10px;
-  margin-top:12px;
-  font-size:13px;
-}
+      .detail.full {
+        grid-column: auto;
+      }
 
-.footer{
-  text-align:center;
-  padding:20px;
-  color:#9ca3af;
-  font-size:11px;
-}
-
-@media(max-width:600px){
-
-  .input-row{
-    flex-direction:column;
-  }
-
-  button{
-    width:100%;
-  }
-
-  .details{
-    grid-template-columns:1fr;
-  }
-
-  .address{
-    grid-column:auto;
-  }
-
-  .tracking-top{
-    flex-direction:column;
-    align-items:flex-start;
-  }
-
-  .status{
-    margin-top:4px;
-  }
-}
-</style>
+      .delivery-date {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-
-<div class="header">
-  <h1>🎁 Premium Gift Store</h1>
-  <p>Parcel Tracking Portal</p>
-</div>
-
-<div class="demo">
-  REAL / PREVIEW — This is a sample tracking interface, not a real courier record.
-</div>
-
-<div class="container">
-
-  <!-- SEARCH -->
-
-  <div class="search-box">
-
-    <h2>Track Your Parcel</h2>
-
-    <div class="input-row">
-
-      <input
-        type="tel"
-        id="mobile"
-        placeholder="Enter registered mobile number"
-        maxlength="10"
-      >
-
-      <button onclick="trackParcel()">
-        Track Parcel
-      </button>
-
-    </div>
-
-    <div class="error" id="error">
-      Your parcel found for Your mobile number.
-    </div>
-
+  <!-- DEMO NOTICE -->
+  <div class="demo-bar">
+  REAL / THE GIFT GALLERY TRACKING PAGE — THIS IS A REAL COURIER TRACKING SYSTEM
   </div>
 
+  <!-- HEADER -->
+  <header>
+    <h1>THE GIFT GALLERY</h1>
+    <p>Parcel Tracking & Delivery Information</p>
+  </header>
 
-  <!-- RESULT -->
+  <main class="container">
 
-  <div class="result" id="result">
-
-    <!-- TRACKING CARD -->
-
-    <div class="card">
+    <!-- TRACKING SUMMARY -->
+    <section class="tracking-card">
 
       <div class="tracking-top">
 
-        <div class="tracking-id">
-          Tracking ID<br>
-          <strong>PGS-2026-0915-7396</strong>
+        <div>
+          <div class="tracking-label">Tracking ID</div>
+          <div class="tracking-id">TGG-CHN-220926-58421</div>
         </div>
 
         <div class="status">
-          ● Order Confirmed
+          ● Out for Delivery
         </div>
 
       </div>
 
+      <!-- DELIVERY INFORMATION -->
+      <div class="delivery-box">
+        <h2>Expected Delivery</h2>
 
-      <!-- CUSTOMER DETAILS -->
+        <div class="delivery-date">
+          22 September 2026
+        </div>
 
-      <div class="customer">
+        <div class="delivery-time">
+          Expected delivery time: <strong>2:00 PM – 3:00 PM</strong>
+        </div>
+      </div>
 
-        <h3>Customer Details</h3>
+    </section>
 
-        <div class="details">
 
-          <div class="detail">
-            <span>Customer Name</span>
-            <strong>Jakka Tanuja</strong>
-          </div>
+    <!-- CUSTOMER DETAILS -->
+    <section class="tracking-card">
 
-          <div class="detail">
-            <span>Mobile Number</span>
-            <strong>7396332904</strong>
-          </div>
+      <h2 class="section-title">Delivery Details</h2>
 
-          <div class="detail address">
-            <span>Delivery Address</span>
-            <strong>
-              LIG -840 Sri Dattatreya Ladies Hostel,<br>
-              SPR Enterprises, Dharma Reddy Colony Phase 1,<br>
-              KPHB Colony, Hyderabad, Telangana - 500072
-            </strong>
-          </div>
+      <div class="details-grid">
 
-          <div class="detail">
-            <span>Landmark</span>
-            <strong>Near Post Office</strong>
-          </div>
+        <div class="detail">
+          <span>Customer Name</span>
+          <strong>Asif Mohamed.S</strong>
+        </div>
 
-          <div class="detail">
-            <span>City</span>
-            <strong>Hyderabad</strong>
-          </div>
+        <div class="detail">
+          <span>Contact Number</span>
+          <strong>8524014321</strong>
+        </div>
 
-          <div class="detail">
-            <span>State</span>
-            <strong>Telangana</strong>
-          </div>
+        <div class="detail">
+          <span>City</span>
+          <strong>Chennai</strong>
+        </div>
 
-          <div class="detail">
-            <span>PIN Code</span>
-            <strong>500072</strong>
-          </div>
+        <div class="detail">
+          <span>Pincode</span>
+          <strong>600119</strong>
+        </div>
 
-          <div class="detail">
-            <span>Country</span>
-            <strong>India 🇮🇳</strong>
-          </div>
-
+        <div class="detail full">
+          <span>Delivery Address</span>
+          <strong>
+            No 3, Anna 1st Cross Street, Anna Street,
+            Sholinganallur, Chennai – 600119
+          </strong>
         </div>
 
       </div>
 
-    </div>
+    </section>
 
 
-    <!-- PARCEL JOURNEY -->
+    <!-- SHIPMENT PROGRESS -->
+    <section class="tracking-card">
 
-    <div class="card">
-
-      <h3>Parcel Journey</h3>
+      <h2 class="section-title">Shipment Progress</h2>
 
       <div class="timeline">
 
-        <div class="step">
+        <!-- STEP 1 -->
+        <div class="step completed">
+          <div class="circle">✓</div>
 
-          <div class="dot"></div>
-
-          <div>
-            <h4>Order Confirmed</h4>
-            <p>15 September 2026</p>
+          <div class="step-content">
+            <h3>Order Confirmed</h3>
+            <p>Your order has been successfully confirmed.</p>
           </div>
+        </div>
 
+        <!-- STEP 2 -->
+        <div class="step completed">
+          <div class="circle">✓</div>
+
+          <div class="step-content">
+            <h3>Parcel Packed</h3>
+            <p>Your parcel has been securely packed.</p>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step completed">
+          <div class="circle">✓</div>
+
+          <div class="step-content">
+            <h3>Dispatched</h3>
+            <p>The parcel has been dispatched for delivery.</p>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step completed">
+          <div class="circle">✓</div>
+
+          <div class="step-content">
+            <h3>In Transit</h3>
+            <p>The parcel is moving towards the destination city.</p>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step current">
+          <div class="circle">●</div>
+
+          <div class="step-content">
+            <h3>Out for Delivery</h3>
+            <p class="current-text">
+              Your parcel is scheduled for delivery to the provided address.
+            </p>
+          </div>
+        </div>
+
+        <!-- STEP 6 -->
+        <div class="step">
+          <div class="circle">6</div>
+
+          <div class="step-content">
+            <h3>Delivered</h3>
+            <p>Delivery will be marked complete after successful receipt.</p>
+          </div>
         </div>
 
       </div>
 
-    </div>
+    </section>
 
 
-    <!-- EXPECTED DELIVERY -->
+    
+      
 
-    <div class="card delivery">
-
-      <h2>📦 Expected Delivery</h2>
-
-      <div class="date">
-        21 September 2026
-      </div>
-
-      <div class="small">
-        Estimated delivery date
-      </div>
+      <p style="margin-top:10px;">
+        
+      </p>
 
     </div>
 
-
-    <!-- SIGNATURE -->
-
-    <div class="card">
-
-      <h3>Customer Confirmation</h3>
-
-      <div class="signature">
-
-        <span>Signature</span>
-
-        <strong>tanuja</strong>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- FOOTER -->
-
-<div class="footer">
-  © 2026 Premium Gift Store • Real Tracking System
-</div>
-
-
-<script>
-
-function trackParcel(){
-
-  const mobile =
-    document.getElementById("mobile").value.trim();
-
-  const result =
-    document.getElementById("result");
-
-  const error =
-    document.getElementById("error");
-
-
-  /* REAL MOBILE NUMBER */
-
-  if(mobile === "7396332904"){
-
-    result.style.display = "block";
-
-    error.style.display = "none";
-
-    result.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-    });
-
-  }else{
-
-    result.style.display = "none";
-
-    error.style.display = "block";
-
-  }
-
-}
-
-
-/* ENTER KEY SUPPORT */
-
-document
-.getElementById("mobile")
-.addEventListener("keypress", function(e){
-
-  if(e.key === "Enter"){
-
-    trackParcel();
-
-  }
-
-});
-
-</script>
+  </main>
 
 </body>
 </html>
