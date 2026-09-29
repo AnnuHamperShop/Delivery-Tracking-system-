@@ -1,668 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parcel Delivery Tracking</title>
 
-  <title>THE GIFT GALLERY | Parcel Tracking</title>
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, sans-serif;
+}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+body{
+    background:#f3f6fa;
+    color:#1f2937;
+}
 
-    body {
-      background: #f4f6f8;
-      color: #1d2939;
-    }
+.header{
+    background:linear-gradient(135deg,#111827,#2563eb);
+    color:white;
+    padding:28px 20px;
+    text-align:center;
+}
 
-    /* DEMO BAR */
-    .demo-bar {
-      background: #fff3cd;
-      color: #856404;
-      text-align: center;
-      padding: 10px 15px;
-      font-size: 12px;
-      font-weight: 700;
-      border-bottom: 1px solid #ffe69c;
-    }
+.header h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
 
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #111827, #26354d);
-      color: white;
-      text-align: center;
-      padding: 30px 20px;
-    }
+.header p{
+    opacity:.9;
+}
 
-    header h1 {
-      font-size: 26px;
-      letter-spacing: 1px;
-    }
+.container{
+    max-width:700px;
+    margin:30px auto;
+    padding:0 15px;
+}
 
-    header p {
-      color: #d7dee8;
-      font-size: 14px;
-      margin-top: 7px;
-    }
+.card{
+    background:white;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
 
-    /* MAIN */
-    .container {
-      width: 92%;
-      max-width: 900px;
-      margin: 25px auto 50px;
-    }
+.title{
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:18px;
+}
 
-    /* SEARCH CARD */
-    .search-card {
-      background: white;
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
-      text-align: center;
-    }
+.info{
+    display:flex;
+    justify-content:space-between;
+    padding:13px 0;
+    border-bottom:1px solid #eee;
+}
 
-    .search-card h2 {
-      font-size: 20px;
-      color: #111827;
-      margin-bottom: 8px;
-    }
+.info:last-child{
+    border-bottom:none;
+}
 
-    .search-card p {
-      color: #667085;
-      font-size: 13px;
-      margin-bottom: 20px;
-    }
+.label{
+    color:#6b7280;
+}
 
-    .search-box {
-      display: flex;
-      gap: 10px;
-      max-width: 650px;
-      margin: auto;
-    }
+.value{
+    font-weight:bold;
+    text-align:right;
+}
 
-    .search-box input {
-      flex: 1;
-      height: 50px;
-      border: 1px solid #d0d5dd;
-      border-radius: 10px;
-      padding: 0 15px;
-      font-size: 15px;
-      outline: none;
-    }
+.status{
+    display:inline-block;
+    padding:7px 13px;
+    border-radius:20px;
+    background:#fff3cd;
+    color:#946200;
+    font-size:13px;
+    font-weight:bold;
+}
 
-    .search-box input:focus {
-      border-color: #111827;
-    }
+.charge{
+    background:#fff8e6;
+    border:1px solid #ffd66b;
+}
 
-    .search-box button {
-      height: 50px;
-      border: none;
-      border-radius: 10px;
-      background: #111827;
-      color: white;
-      padding: 0 25px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
+.charge .amount{
+    font-size:30px;
+    font-weight:bold;
+    color:#d97706;
+    margin:10px 0;
+}
 
-    .search-box button:hover {
-      background: #26354d;
-    }
+.timeline{
+    position:relative;
+    margin-top:10px;
+}
 
-    .example {
-      margin-top: 12px;
-      font-size: 11px;
-      color: #98a2b3;
-    }
+.step{
+    display:flex;
+    gap:15px;
+    padding:15px 0;
+    position:relative;
+}
 
-    /* ERROR */
-    .error {
-      display: none;
-      background: #fef3f2;
-      color: #b42318;
-      padding: 12px;
-      border-radius: 10px;
-      margin-top: 15px;
-      font-size: 13px;
-    }
+.dot{
+    width:15px;
+    height:15px;
+    background:#2563eb;
+    border-radius:50%;
+    margin-top:4px;
+    flex-shrink:0;
+}
 
-    /* RESULT */
-    #result {
-      display: none;
-    }
+.step h3{
+    font-size:15px;
+    margin-bottom:4px;
+}
 
-    .tracking-card {
-      background: white;
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-      margin-bottom: 20px;
-    }
+.step p{
+    color:#6b7280;
+    font-size:13px;
+}
 
-    .tracking-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid #e5e7eb;
-    }
+.notice{
+    background:#eef6ff;
+    border-left:4px solid #2563eb;
+    padding:15px;
+    border-radius:8px;
+    font-size:14px;
+    line-height:1.5;
+}
 
-    .tracking-label {
-      color: #667085;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .tracking-id {
-      font-size: 20px;
-      font-weight: 800;
-      color: #111827;
-      margin-top: 5px;
-      word-break: break-word;
-    }
-
-    .status {
-      background: #dcfce7;
-      color: #166534;
-      padding: 9px 15px;
-      border-radius: 30px;
-      font-size: 12px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    /* DELIVERY */
-    .delivery-box {
-      background: #f8fafc;
-      border-radius: 14px;
-      padding: 20px;
-      margin-top: 20px;
-    }
-
-    .delivery-box h2 {
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-
-    .delivery-date {
-      font-size: 23px;
-      font-weight: 800;
-      color: #111827;
-    }
-
-    .delivery-time {
-      margin-top: 6px;
-      color: #667085;
-      font-size: 13px;
-    }
-
-    /* DETAILS */
-    .section-title {
-      font-size: 19px;
-      margin-bottom: 18px;
-      color: #111827;
-    }
-
-    .details-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-    }
-
-    .detail {
-      background: #f8fafc;
-      padding: 15px;
-      border-radius: 12px;
-    }
-
-    .detail.full {
-      grid-column: 1 / -1;
-    }
-
-    .detail span {
-      display: block;
-      color: #667085;
-      font-size: 11px;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .detail strong {
-      display: block;
-      color: #1d2939;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    /* TIMELINE */
-    .timeline {
-      position: relative;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 18px;
-      top: 10px;
-      bottom: 10px;
-      width: 2px;
-      background: #d0d5dd;
-    }
-
-    .step {
-      position: relative;
-      display: flex;
-      gap: 17px;
-      margin-bottom: 25px;
-    }
-
-    .step:last-child {
-      margin-bottom: 0;
-    }
-
-    .circle {
-      width: 38px;
-      height: 38px;
-      min-width: 38px;
-      border-radius: 50%;
-      background: #e4e7ec;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 2;
-      color: #667085;
-      font-weight: bold;
-      font-size: 15px;
-    }
-
-    .completed .circle {
-      background: #111827;
-      color: white;
-    }
-
-    .current .circle {
-      background: #16a34a;
-      color: white;
-      box-shadow: 0 0 0 5px #dcfce7;
-    }
-
-    .step-content h3 {
-      font-size: 15px;
-      color: #111827;
-      margin-bottom: 5px;
-    }
-
-    .step-content p {
-      font-size: 13px;
-      color: #667085;
-      line-height: 1.5;
-    }
-
-    .current-text {
-      color: #15803d !important;
-      font-weight: 700;
-    }
-
-    /* FOOTER */
-    .footer-note {
-      text-align: center;
-      color: #667085;
-      font-size: 11px;
-      line-height: 1.6;
-      margin-top: 25px;
-    }
-
-    .demo-label {
-      display: inline-block;
-      padding: 5px 10px;
-      border: 1px solid #f59e0b;
-      color: #b45309;
-      border-radius: 20px;
-      font-size: 10px;
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    /* MOBILE */
-    @media (max-width: 600px) {
-
-      header h1 {
-        font-size: 21px;
-      }
-
-      .container {
-        width: 94%;
-      }
-
-      .tracking-card,
-      .search-card {
-        padding: 18px;
-        border-radius: 15px;
-      }
-
-      .search-box {
-        flex-direction: column;
-      }
-
-      .search-box button {
-        width: 100%;
-      }
-
-      .tracking-top {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .tracking-id {
-        font-size: 17px;
-      }
-
-      .details-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .detail.full {
-        grid-column: auto;
-      }
-
-      .delivery-date {
-        font-size: 19px;
-      }
-    }
-  </style>
+.footer{
+    text-align:center;
+    color:#6b7280;
+    font-size:12px;
+    padding:20px;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- DEMO NOTICE -->
-  <div class="demo-bar">
-  REAL / GIFT TRACKING PAGE — THIS IS A REAL COURIER TRACKING SYSTEM
-  </div>
+<div class="header">
+    <h1>📦 Parcel Delivery</h1>
+    <p>Delivery Tracking Information</p>
+</div>
 
-  <!-- HEADER -->
-  <header>
-    <h1>THE GIFT GALLERY</h1>
-    <p>Parcel Tracking & Delivery Information</p>
-  </header>
+<div class="container">
 
-  <main class="container">
+    <div class="card">
+        <div class="title">📍 Delivery Details</div>
 
-    <!-- SEARCH SECTION -->
-    <section class="search-card">
-
-      <h2>Track Your Order</h2>
-
-      <p>
-        Enter your tracking ID below to view your order details.
-      </p>
-
-      <div class="search-box">
-
-        <input
-          type="text"
-          id="trackingInput"
-          placeholder="Enter Tracking ID"
-          autocomplete="off"
-        >
-
-        <button onclick="trackOrder()">
-          Track Order
-        </button>
-
-      </div>
-
-      <div class="example">
-        FILL TRACKING CODE NUMBER 
-      </div>
-
-      <div class="error" id="errorMessage">
-        Tracking ID not found. Please check the tracking ID and try again.
-      </div>
-
-    </section>
-
-
-    <!-- ORDER RESULT -->
-    <div id="result">
-
-      <!-- TRACKING STATUS -->
-      <section class="tracking-card">
-
-        <div class="tracking-top">
-
-          <div>
-            <div class="tracking-label">
-              Tracking ID
-            </div>
-
-            <div class="tracking-id">
-              TGG-CHN-220926-58421
-            </div>
-          </div>
-
-          <div class="status">
-            ● Out for Delivery
-          </div>
-
+        <div class="info">
+            <span class="label">Customer Name</span>
+            <span class="value">Chaitra Pujar</span>
         </div>
 
-
-        <!-- DELIVERY -->
-        <div class="delivery-box">
-
-          <h2>Expected Delivery</h2>
-
-          <div class="delivery-date">
-            22 September 2026
-          </div>
-
-          <div class="delivery-time">
-            Expected delivery time:
-            <strong>2:00 PM – 3:00 PM</strong>
-          </div>
-
+        <div class="info">
+            <span class="label">Phone</span>
+            <span class="value">8123210172</span>
         </div>
 
-      </section>
-
-
-      <!-- ORDER DETAILS -->
-      <section class="tracking-card">
-
-        <h2 class="section-title">
-          Order Details
-        </h2>
-
-        <div class="details-grid">
-
-          <div class="detail">
-            <span>Customer Name</span>
-            <strong>Asif Mohamed.S</strong>
-          </div>
-
-          <div class="detail">
-            <span>Contact Number</span>
-            <strong>8524014321</strong>
-          </div>
-
-          <div class="detail">
-            <span>City</span>
-            <strong>Chennai</strong>
-          </div>
-
-          <div class="detail">
-            <span>Pincode</span>
-            <strong>600119</strong>
-          </div>
-
-          <div class="detail full">
-            <span>Delivery Address</span>
-
-            <strong>
-              No 3, Anna 1st Cross Street, Anna Street,
-              Sholinganallur, Chennai – 600119
-            </strong>
-          </div>
-
+        <div class="info">
+            <span class="label">City</span>
+            <span class="value">Hubli</span>
         </div>
 
-      </section>
-
-
-      <!-- SHIPMENT PROGRESS -->
-      <section class="tracking-card">
-
-        <h2 class="section-title">
-          Shipment Progress
-        </h2>
-
-        <div class="timeline">
-
-          <div class="step completed">
-            <div class="circle">✓</div>
-
-            <div class="step-content">
-              <h3>Order Confirmed</h3>
-              <p>
-                Your order has been successfully confirmed.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="step completed">
-            <div class="circle">✓</div>
-
-            <div class="step-content">
-              <h3>Parcel Packed</h3>
-              <p>
-                Your parcel has been securely packed.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="step completed">
-            <div class="circle">✓</div>
-
-            <div class="step-content">
-              <h3>Dispatched</h3>
-              <p>
-                The parcel has been dispatched for delivery.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="step completed">
-            <div class="circle">✓</div>
-
-            <div class="step-content">
-              <h3>In Transit</h3>
-              <p>
-                The parcel is moving towards the destination city.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="step current">
-            <div class="circle">●</div>
-
-            <div class="step-content">
-              <h3>Out for Delivery</h3>
-              <p class="current-text">
-                Your parcel is scheduled for delivery to the
-                provided address.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="step">
-            <div class="circle">6</div>
-
-            <div class="step-content">
-              <h3>Delivered</h3>
-              <p>
-                Delivery will be marked complete after successful receipt.
-              </p>
-            </div>
-          </div>
-
+        <div class="info">
+            <span class="label">State</span>
+            <span class="value">Karnataka</span>
         </div>
 
-      </section>
+        <div class="info">
+            <span class="label">PIN Code</span>
+            <span class="value">580030</span>
+        </div>
 
+        <div class="info">
+            <span class="label">Delivery Status</span>
+            <span class="status">Delivery Charge Pending</span>
+        </div>
     </div>
 
 
-    <!-- FOOTER -->
-    <div class="footer-note">
+    <div class="card charge">
+        <div class="title">🚚 Delivery Charge</div>
 
-      
+        <div class="amount">₹1,998.90</div>
 
-  </main>
-
-
-  <!-- JAVASCRIPT -->
-  <script>
-
-    function trackOrder() {
-
-      const input = document
-        .getElementById("trackingInput")
-        .value
-        .trim()
-        .toUpperCase();
-
-      const result = document.getElementById("result");
-      const error = document.getElementById("errorMessage");
-
-      const validTrackingID = "TGG-CHN-220926-58421";
-
-      if (input === validTrackingID) {
-
-        error.style.display = "none";
-        result.style.display = "block";
-
-        // Scroll smoothly to order details
-        setTimeout(function() {
-          result.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-        }, 100);
-
-      } else {
-
-        result.style.display = "none";
-        error.style.display = "block";
-
-      }
-    }
+        <p>
+            Status: <strong>Pending</strong>
+        </p>
+    </div>
 
 
-    // Enter key se bhi tracking chalegi
-    document
-      .getElementById("trackingInput")
-      .addEventListener("keydown", function(event) {
+    <div class="card">
+        <div class="title">📦 Parcel Status</div>
 
-        if (event.key === "Enter") {
-          trackOrder();
-        }
+        <div class="timeline">
 
-      });
+            <div class="step">
+                <div class="dot"></div>
+                <div>
+                    <h3>Parcel Registered</h3>
+                    <p>Delivery request has been registered.</p>
+                </div>
+            </div>
 
-  </script>
+            <div class="step">
+                <div class="dot"></div>
+                <div>
+                    <h3>Parcel Processing</h3>
+                    <p>Parcel is being prepared for dispatch.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="dot"></div>
+                <div>
+                    <h3>Delivery Charge Pending</h3>
+                    <p>Delivery charge of ₹1,998.90 is currently pending.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="dot"></div>
+                <div>
+                    <h3>Delivery</h3>
+                    <p>Delivery status will be updated after processing.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="title">ℹ️ Important Information</div>
+
+        <div class="notice">
+            This page is a delivery-status information page.
+            Please verify all payment requests and delivery details
+            through the official courier/service provider before making
+            any payment.
+        </div>
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 Parcel Delivery Tracking •  Tracking Page
+</div>
 
 </body>
 </html>
